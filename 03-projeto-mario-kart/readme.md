@@ -121,5 +121,5 @@
 <b>Jogadores:</b>
 
 <ul>
-    <li>Todos os players foram adicionados e são sorteados aleatóriamente em cada início de partida.</li>
+    <li>Todos os players foram adicionados e são sorteados aleatoriamente em cada início de partida.</li>
 </ul>
