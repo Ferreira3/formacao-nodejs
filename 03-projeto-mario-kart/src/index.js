@@ -106,7 +106,8 @@ async function playRaceEngine(character1, character2) {
       let powerResult1 = diceResult1 + character1.PODER;
       let powerResult2 = diceResult2 + character2.PODER;
       let damageDone = Math.floor(Math.random() * 2 + 1);
-      const damageEmoji = ["", "🐢", "💣"];
+      const weaponIcon = damageDone === 1 ? "Casco 🐢" : "Bomba 💣";
+      let bonusPoint = Math.floor(Math.random() * 2);
 
       console.log(`${character1.NOME} confrontou com ${character2.NOME}! 🥊`);
 
@@ -127,14 +128,20 @@ async function playRaceEngine(character1, character2) {
       // verificando vencedor do confronto e aplicando o dano causado
       if (powerResult1 > powerResult2) {
         console.log(`${character1.NOME} venceu o confronto!`);
-        console.log(`${character2.NOME} perdeu ${damageDone} ponto(s) ${damageEmoji[damageDone]}`);
+        console.log(`${character2.NOME} recebeu ${weaponIcon} e perdeu ${damageDone} ponto(s) `);
         character2.PONTOS = Math.max(0, character2.PONTOS - damageDone);
+        character1.PONTOS += bonusPoint
       } else if (powerResult2 > powerResult1) {
         console.log(`${character2.NOME} venceu o confronto!`);
-        console.log(`${character1.NOME} perdeu ${damageDone} ponto(s) ${damageEmoji[damageDone]}`);
+        console.log(`${character1.NOME} recebeu ${weaponIcon} e perdeu ${damageDone} ponto(s) `);
         character1.PONTOS = Math.max(0, character1.PONTOS - damageDone);
+        character2.PONTOS += bonusPoint
       } else {
         console.log("Confronto empatado!");
+      }
+
+      if (powerResult1 !== powerResult2 && bonusPoint > 0) {
+        console.log("O vencedor do confronto ganhou 1 ponto EXTRA")
       }
     }
 

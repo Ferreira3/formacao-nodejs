@@ -104,6 +104,13 @@
 
 <h3>✨ Funcionalidades Extras Adicionadas:</h3>
 
+<b>Gerais:</b>
+
+<ul>
+    <li>Delay entre rodadas.</li>
+    <li>Pequenas melhorias na visibilidade do texto.</li>
+</ul>
+
 <b>Confronto:</b>
 
 <ul>
