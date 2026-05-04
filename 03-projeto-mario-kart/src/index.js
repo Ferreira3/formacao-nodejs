@@ -1,18 +1,18 @@
-const player1 = {
-  NOME: "Mario",
-  VELOCIDADE: 4,
-  MANOBRABILIDADE: 3,
-  PODER: 3,
-  PONTOS: 0,
-};
+const players = [
+  { NOME: "Mario", VELOCIDADE: 4, MANOBRABILIDADE: 3, PODER: 3, PONTOS: 0 },
+  { NOME: "Peach", VELOCIDADE: 3, MANOBRABILIDADE: 4, PODER: 2, PONTOS: 0 },
+  { NOME: "Yoshi", VELOCIDADE: 2, MANOBRABILIDADE: 4, PODER: 3, PONTOS: 0 },
+  { NOME: "Bowser", VELOCIDADE: 5, MANOBRABILIDADE: 2, PODER: 5, PONTOS: 0 },
+  { NOME: "Luigi", VELOCIDADE: 3, MANOBRABILIDADE: 4, PODER: 4, PONTOS: 0 },
+  { NOME: "Donkey Kong", VELOCIDADE: 2, MANOBRABILIDADE: 2, PODER: 5, PONTOS: 0 }
+];
 
-const player2 = {
-  NOME: "Luigi",
-  VELOCIDADE: 3,
-  MANOBRABILIDADE: 4,
-  PODER: 4,
-  PONTOS: 0,
-};
+// sorteando jogadores
+const player1 = players[Math.floor(Math.random() * 6)];
+let player2;
+do {
+  player2 = players[Math.floor(Math.random() * 6)];
+} while (player1 === player2);
 
 async function rollDice() {
   return Math.floor(Math.random() * 6) + 1;
@@ -161,7 +161,7 @@ async function declareWinner(character1, character2) {
     console.log(`\n${character1.NOME} venceu a corrida! Parabéns! 🏆`);
   else if (character2.PONTOS > character1.PONTOS)
     console.log(`\n${character2.NOME} venceu a corrida! Parabéns! 🏆`);
-  else console.log("A corrida terminou em empate");
+  else console.log("\nA corrida terminou em empate!");
 }
 
 (async function main() {
