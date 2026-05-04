@@ -12,7 +12,7 @@
         </tr>
     </table>
 
-<h2>Players</h2>
+<h2 style="text-align: center">Players</h2>
       <table style="border-collapse: collapse; width: 800px; margin: 0 auto;">
         <tr>
             <td style="border: 1px solid black; text-align: center;">
@@ -101,3 +101,18 @@
 
 <input type="checkbox" id="vitoria-item" />
 <label for="vitoria-item">Ao final, vence quem acumulou mais pontos</label>
+
+<h3>✨ Funcionalidades Extras Adicionadas:</h3>
+
+<b>Confronto:</b>
+
+<ul>
+    <li>Sortear aleatoriamente se o ataque será causado por um casco(-1 ponto) ou uma bomba(-2 pontos).</li>
+    <li>O vencedor do confronto tem 50% de chance de ganhar 1 ponto extra.</li>
+</ul>
+
+<b>Jogadores:</b>
+
+<ul>
+    <li>Todos os players foram adicionados e são sorteados aleatóriamente em cada início de partida.</li>
+</ul>
