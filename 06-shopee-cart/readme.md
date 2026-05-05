@@ -89,6 +89,20 @@ Após a conclusão do curso/projeto, os estudantes estarão aptos a:
 - Como organizar pensamento lógico e funcional
 - Base para organizar projetos
 
+## ✨ Funcionalidades Extras Adicionadas
+
+1 - Agrupamento de Itens Repetidos:
+
+- Ajuste da função 'addItem' para que, ao adicionar um item que já existe no carrinho, o sistema apenas aumentar a 'quantity' do objeto atual em vez de duplicá-lo.
+
+2 - Sistema de Cupons de Desconto:
+
+- Implementação da funcionalidade que valida cupons promocionais e aplique uma redução percentual ou fixa sobre o valor total calculado.
+
+3 - Persistência dos Dados:
+
+- Criada uma lógica para salvar o estado do carrinho de compras em um arquivo físico (cart.json), garantindo que os itens não sumam quando o Node.js for encerrado.
+
 <!--START_SECTION:footer-->
 
 <br />
