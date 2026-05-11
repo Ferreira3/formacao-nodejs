@@ -9,8 +9,6 @@
   </p>
 </div>
 
-
-<br/>
 <br/>
 
 ## 💻 Sobre o Projeto
@@ -42,6 +40,5 @@ Após a conclusão do curso/projeto, os estudantes estarão aptos a:
 
 ## ✨ Funcionalidades Extras Adicionadas
 
-- Exportação de Arquivo: Salvar automaticamente o QR Code como imagem em uma pasta dedicada.
-- Validação de URL: Impedir a geração de códigos se o link inserido estiver quebrado ou for inválido.
+- Exportação de Arquivo: Adicionada opção para salvar o QRCode em pasta uma local.
 - Encurtador de URLs: Reduz o comprimento de links extensos, otimizando a estética e facilitando o compartilhamento em redes sociais e comunicações de marketing.

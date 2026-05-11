@@ -3,8 +3,8 @@ import chalk from "chalk";
 const promptSchemaMain = [
   {
     name: "select",
-    description: chalk.yellow.bold(
-      "Escolha a ferramenta (1 - QRCODE (2 - PASSWORD (3 - URL SHORTENER"
+    description: chalk.yellow(
+      "\nEscolha a ferramenta:\n1) CRIADOR DE QRCODE\n2) GERADOR DE SENHAS\n3) ENCURTADOR DE URL\n"
     ),
     pattern: /^[1-3]+$/,
     message: chalk.red.italic("Escolha inválida! Tente novamente."),

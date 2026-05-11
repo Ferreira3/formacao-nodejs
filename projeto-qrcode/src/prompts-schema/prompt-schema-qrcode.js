@@ -8,10 +8,10 @@ const promptSchemaQRCode = [
     {
         name: "type",
         description: chalk.yellow(
-            "Escolha entre o tipo de QRcode (1- NORMAL ou (2- TERMINAL"
+            "\nEscolha entre o tipo de QRcode:\n1) NORMAL\n2) TERMINAL\n3) SALVAR QRCODE"
         ),
-        pattern: /^[1-2]+$/,
-        message: chalk.red.italic("Escolha apenas entre 1 e 2"),
+        pattern: /^[1-3]+$/,
+        message: chalk.red.italic("Escolha uma opção válida!"),
         required: true,
     },
 ];
