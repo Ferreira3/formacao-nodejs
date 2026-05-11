@@ -13,5 +13,10 @@
     "name": "Monitor Dell 27' 4K",
     "price": 2400,
     "quantity": 1
+  },
+  {
+    "name": "chupeta de baleia",
+    "price": 10,
+    "quantity": 2
   }
 ]
