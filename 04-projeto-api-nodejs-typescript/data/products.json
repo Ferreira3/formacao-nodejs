@@ -1,0 +1,22 @@
+[
+  { "id": 1, "name": "Arroz Integral 1kg", "price": 7.90 },
+  { "id": 3, "name": "Feijão Carioca 1kg", "price": 8.50 },
+  { "id": 5, "name": "Azeite de Oliva Extra Virgem 500ml", "price": 34.90 },
+  { "id": 8, "name": "Macarrão Espaguete 500g", "price": 4.20 },
+  { "id": 11, "name": "Café Torrado e Moído 250g", "price": 14.50 },
+  { "id": 12, "name": "Leite Integral UHT 1L", "price": 5.80 },
+  { "id": 15, "name": "Manteiga com Sal 200g", "price": 11.90 },
+  { "id": 18, "name": "Pão de Forma Integral", "price": 7.30 },
+  { "id": 20, "name": "Queijo Mussarela Fatiado 200g", "price": 13.40 },
+  { "id": 22, "name": "Peito de Frango Resfriado 1kg", "price": 19.90 },
+  { "id": 26, "name": "Ovos Brancos Grandes 12un", "price": 10.50 },
+  { "id": 29, "name": "Iogurte Natural Integral 170g", "price": 3.10 },
+  { "id": 32, "name": "Banana Prata Kg", "price": 6.50 },
+  { "id": 35, "name": "Maçã Gala Kg", "price": 9.80 },
+  { "id": 38, "name": "Tomate Italiano Kg", "price": 8.90 },
+  { "id": 41, "name": "Cebola Linear Kg", "price": 5.20 },
+  { "id": 43, "name": "Chocolate Amargo 70% 80g", "price": 9.40 },
+  { "id": 46, "name": "Biscoito Crackers 200g", "price": 4.80 },
+  { "id": 48, "name": "Suco de Uva Integral 1L", "price": 16.50 },
+  { "id": 50, "name": "Granola Tradicional 400g", "price": 15.90 }
+]
