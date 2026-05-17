@@ -120,7 +120,7 @@ Gera o bundle otimizado na pasta `dist/`
 - **tsup** - Bundler e compilador otimizado
 - **tsx** - Executor TypeScript com suporte a ES modules
 
-## 💡 Conceitos Implementados
+## Conceitos Implementados
 
 - ✅ **Arquitetura em Camadas** - Separação clara de responsabilidades
 - ✅ **TypeScript** - Type safety e melhor experiência de desenvolvimento
