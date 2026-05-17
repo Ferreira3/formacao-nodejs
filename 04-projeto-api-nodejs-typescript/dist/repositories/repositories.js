@@ -37,12 +37,38 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// src/controllers/products.controller.ts
-var products_controller_exports = {};
-__export(products_controller_exports, {
-  getProducts: () => getProducts
+// src/repositories/repositories.ts
+var repositories_exports = {};
+__export(repositories_exports, {
+  clientsData: () => clientsData,
+  ordersData: () => ordersData,
+  productsData: () => productsData
 });
-module.exports = __toCommonJS(products_controller_exports);
+module.exports = __toCommonJS(repositories_exports);
+
+// data/clients.json
+var clients_default = [
+  { id: 1, name: "Ana Silva", orders: [3, 7] },
+  { id: 2, name: "Bruno Souza", orders: [5] },
+  { id: 3, name: "Carlos Lima", orders: [1, 4, 9] },
+  { id: 4, name: "Daniela Costa", orders: [8, 10] },
+  { id: 5, name: "Eduardo Santos", orders: [2, 6] },
+  { id: 6, name: "Fernanda Oliveira", orders: [7] },
+  { id: 7, name: "Gabriel Almeida", orders: [3, 5, 8] },
+  { id: 8, name: "Helena Ribeiro", orders: [1, 9] },
+  { id: 9, name: "Igor Carvalho", orders: [4, 6] },
+  { id: 10, name: "Juliana Pereira", orders: [10] },
+  { id: 11, name: "Lucas Martins", orders: [2, 5, 7] },
+  { id: 12, name: "Mariana Rocha", orders: [8] },
+  { id: 13, name: "Nicolas Gomes", orders: [1, 3, 6] },
+  { id: 14, name: "Olivia Rodrigues", orders: [9, 10] },
+  { id: 15, name: "Pedro Mendes", orders: [4, 7] },
+  { id: 16, name: "Rafaela Melo", orders: [2, 8] },
+  { id: 17, name: "Samuel Barbosa", orders: [5, 6, 9] },
+  { id: 18, name: "Tatiane Castro", orders: [3] },
+  { id: 19, name: "Vitor Cardoso", orders: [1, 7, 10] },
+  { id: 20, name: "Yasmin Teixeira", orders: [4, 8] }
+];
 
 // data/products.json
 var products_default = [
@@ -68,35 +94,43 @@ var products_default = [
   { id: 50, name: "Granola Tradicional 400g", price: 15.9 }
 ];
 
+// data/orders.json
+var orders_default = [
+  { id: 101, clientId: 1, productList: [3, 12, 35] },
+  { id: 102, clientId: 2, productList: [1, 22] },
+  { id: 103, clientId: 3, productList: [5, 41, 48] },
+  { id: 104, clientId: 4, productList: [8, 15] },
+  { id: 105, clientId: 5, productList: [11, 26, 50] },
+  { id: 106, clientId: 6, productList: [18, 32] },
+  { id: 107, clientId: 7, productList: [20, 43, 46] },
+  { id: 108, clientId: 8, productList: [29, 38] },
+  { id: 109, clientId: 9, productList: [1, 12, 41] },
+  { id: 110, clientId: 10, productList: [3, 15] },
+  { id: 111, clientId: 11, productList: [5, 22, 35] },
+  { id: 112, clientId: 12, productList: [8, 26] },
+  { id: 113, clientId: 13, productList: [11, 32, 48] },
+  { id: 114, clientId: 14, productList: [18, 43] },
+  { id: 115, clientId: 15, productList: [20, 38, 50] },
+  { id: 116, clientId: 16, productList: [29, 46] },
+  { id: 117, clientId: 17, productList: [1, 5, 15] },
+  { id: 118, clientId: 18, productList: [12, 22] },
+  { id: 119, clientId: 19, productList: [8, 35, 43] },
+  { id: 120, clientId: 20, productList: [26, 48] }
+];
+
 // src/repositories/repositories.ts
+var clientsData = () => __async(null, null, function* () {
+  return clients_default;
+});
 var productsData = () => __async(null, null, function* () {
   return products_default;
 });
-
-// src/services/products.service.ts
-var serviceListProducts = (req) => __async(null, null, function* () {
-  var _a;
-  let data = yield productsData();
-  const productName = ((_a = req.url) == null ? void 0 : _a.split("?p=")[1]) || "";
-  let responseFormat = {
-    statusCode: 0,
-    body: []
-  };
-  if (productName) {
-    data = data.filter((product) => product.name.toLowerCase().includes(productName.toLowerCase()));
-  }
-  responseFormat.statusCode = data.length !== 0 ? 200 /* OK */ : 204 /* NO_CONTENT */;
-  responseFormat.body = data;
-  return responseFormat;
-});
-
-// src/controllers/products.controller.ts
-var getProducts = (req, res) => __async(null, null, function* () {
-  const content = yield serviceListProducts(req);
-  res.writeHead(content.statusCode, { "Content-Type": "application/json" /* JSON */ });
-  res.end(JSON.stringify(content.body));
+var ordersData = () => __async(null, null, function* () {
+  return orders_default;
 });
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  getProducts
+  clientsData,
+  ordersData,
+  productsData
 });
