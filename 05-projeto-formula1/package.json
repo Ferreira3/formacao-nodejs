@@ -6,8 +6,8 @@
   "scripts": {
     "dist": "tsc",
     "start:dev": "tsx --env-file=.env src/server.ts",
-    "start:watch": "tsx watch --env-file=.env  src/server.ts",
-    "start:dist": "npm run dist && node dist/src/server.js"
+    "start:watch": "tsx watch --env-file=.env src/server.ts",
+    "start:dist": "npm run dist && node --env-file=.env dist/src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "typescript": "^5.4.3"
   },
   "dependencies": {
+    "@fastify/cors": "^11.2.0",
     "fastify": "^5.8.5"
   }
 }

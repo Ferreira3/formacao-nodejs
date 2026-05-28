@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "name": "Scuderia Ferrari",
+        "base": "Maranello, Itália"
+    },
+    {
+        "id": 2,
+        "name": "Mercedes-AMG Petronas",
+        "base": "Brackley, Reino Unido"
+    },
+    {
+        "id": 3,
+        "name": "McLaren Formula 1 Team",
+        "base": "Woking, Reino Unido"
+    },
+    {
+        "id": 4,
+        "name": "Oracle Red Bull Racing",
+        "base": "Milton Keynes, Reino Unido"
+    },
+    {
+        "id": 5,
+        "name": "Aston Martin Aramco",
+        "base": "Silverstone, Reino Unido"
+    },
+    {
+        "id": 6,
+        "name": "BWT Alpine F1 Team",
+        "base": "Enstone, Reino Unido"
+    },
+    {
+        "id": 7,
+        "name": "Atlassian Williams Racing",
+        "base": "Grove, Reino Unido"
+    },
+    {
+        "id": 8,
+        "name": "Visa Cash App Racing Bulls",
+        "base": "Faenza, Itália"
+    },
+    {
+        "id": 9,
+        "name": "TGR Haas F1 Team",
+        "base": "Kannapolis, Estados Unidos"
+    },
+    {
+        "id": 10,
+        "name": "Audi Revolut F1 Team",
+        "base": "Hinwil, Suíça"
+    },
+    {
+        "id": 11,
+        "name": "Cadillac Formula 1 Team",
+        "base": "Fishers, Estados Unidos"
+    }
+]
