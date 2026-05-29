@@ -24,21 +24,22 @@ npm install
 Compile (opcional) e rode em modo de desenvolvimento:
 
 ```bash
-npm run build
-npm start
+npm run dist
+npm run start:dev
 ```
 
 Ou para desenvolvimento com watch (se configurado):
 
 ```bash
-npm run dev
+npm run start:watch
 ```
 
 ## Scripts úteis
 
-- `npm run build` — compila TypeScript
-- `npm start` — inicia a API (após build)
-- `npm run dev` — inicia em modo desenvolvimento (se existir configuração)
+- `npm run dist` — compila o projeto de TypeScript para JS
+- `npm run start:dev` — inicia a API
+- `npm run start:watch` — inicia a API em modo watch
+- `npm run start:dist` — compila e inicia o projeto em JS
 
 ## Endpoints principais
 
