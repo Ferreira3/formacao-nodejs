@@ -21,8 +21,94 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
+
+// src/app.ts
+var import_express2 = __toESM(require("express"));
+
+// src/routes.ts
+var import_express = require("express");
+
+// src/repositories/fighters-repository.ts
+var database = [
+  { id: 1, name: "alex pereira" },
+  { id: 2, name: "cyril gane" },
+  { id: 3, name: "charles oliveira" },
+  { id: 4, name: "ilia topuria" },
+  { id: 5, name: "carlos prates" }
+];
+var getListFighters = () => __async(null, null, function* () {
+  return database;
+});
+
+// src/utils/http-helper.ts
+var ok = (data) => __async(null, null, function* () {
+  return {
+    statusCode: 200,
+    body: data
+  };
+});
+var noContent = () => __async(null, null, function* () {
+  return {
+    statusCode: 204,
+    body: null
+  };
+});
+
+// src/services/fighters-services.ts
+var getFighterService = () => __async(null, null, function* () {
+  const data = yield getListFighters();
+  let response = null;
+  if (data) {
+    response = yield ok(data);
+  } else {
+    response = yield noContent();
+  }
+  return response;
+});
+
+// src/controllers/fighters-controller.ts
+var getFighters = (req, res) => __async(null, null, function* () {
+  const httpResponse = yield getFighterService();
+  res.status(httpResponse.statusCode).json(httpResponse.body);
+});
+
+// src/routes.ts
+var router = (0, import_express.Router)();
+router.get("/fighters/list", getFighters);
+var routes_default = router;
+
+// src/app.ts
+function createApp() {
+  const app2 = (0, import_express2.default)();
+  app2.use((0, import_express2.json)());
+  app2.use("/api", routes_default);
+  return app2;
+}
+var app_default = createApp;
 
 // src/server.ts
-var import_express = __toESM(require("express"));
-var app = (0, import_express.default)();
-console.log("hello world!");
+var app = app_default();
+var port = process.env.PORT;
+app.listen(port, () => {
+  console.log(`server initiated at port ${port}`);
+});

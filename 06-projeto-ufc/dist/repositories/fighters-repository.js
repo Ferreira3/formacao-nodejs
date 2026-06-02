@@ -37,14 +37,13 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// src/controllers/fighters-controller.ts
-var fighters_controller_exports = {};
-__export(fighters_controller_exports, {
-  getFighters: () => getFighters
-});
-module.exports = __toCommonJS(fighters_controller_exports);
-
 // src/repositories/fighters-repository.ts
+var fighters_repository_exports = {};
+__export(fighters_repository_exports, {
+  getFighterById: () => getFighterById,
+  getListFighters: () => getListFighters
+});
+module.exports = __toCommonJS(fighters_repository_exports);
 var database = [
   { id: 1, name: "alex pereira" },
   { id: 2, name: "cyril gane" },
@@ -55,39 +54,11 @@ var database = [
 var getListFighters = () => __async(null, null, function* () {
   return database;
 });
-
-// src/utils/http-helper.ts
-var ok = (data) => __async(null, null, function* () {
-  return {
-    statusCode: 200,
-    body: data
-  };
-});
-var noContent = () => __async(null, null, function* () {
-  return {
-    statusCode: 204,
-    body: null
-  };
-});
-
-// src/services/fighters-services.ts
-var getFighterService = () => __async(null, null, function* () {
-  const data = yield getListFighters();
-  let response = null;
-  if (data) {
-    response = yield ok(data);
-  } else {
-    response = yield noContent();
-  }
-  return response;
-});
-
-// src/controllers/fighters-controller.ts
-var getFighters = (req, res) => __async(null, null, function* () {
-  const httpResponse = yield getFighterService();
-  res.status(httpResponse.statusCode).json(httpResponse.body);
+var getFighterById = (id) => __async(null, null, function* () {
+  return database.find((player) => player.id === id);
 });
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  getFighters
+  getFighterById,
+  getListFighters
 });

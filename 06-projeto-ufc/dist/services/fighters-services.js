@@ -37,12 +37,12 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// src/controllers/fighters-controller.ts
-var fighters_controller_exports = {};
-__export(fighters_controller_exports, {
-  getFighters: () => getFighters
+// src/services/fighters-services.ts
+var fighters_services_exports = {};
+__export(fighters_services_exports, {
+  getFighterService: () => getFighterService
 });
-module.exports = __toCommonJS(fighters_controller_exports);
+module.exports = __toCommonJS(fighters_services_exports);
 
 // src/repositories/fighters-repository.ts
 var database = [
@@ -81,13 +81,7 @@ var getFighterService = () => __async(null, null, function* () {
   }
   return response;
 });
-
-// src/controllers/fighters-controller.ts
-var getFighters = (req, res) => __async(null, null, function* () {
-  const httpResponse = yield getFighterService();
-  res.status(httpResponse.statusCode).json(httpResponse.body);
-});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  getFighters
+  getFighterService
 });

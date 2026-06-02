@@ -1,5 +1,8 @@
-import express from "express";
+import createApp from "./app";
 
-const app = express();
+const app = createApp();
+const port = process.env.PORT;
 
-console.log("hello world!")
+app.listen(port, () => {
+  console.log(`server initiated at port ${port}`);
+});

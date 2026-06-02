@@ -37,12 +37,13 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// src/controllers/fighters-controller.ts
-var fighters_controller_exports = {};
-__export(fighters_controller_exports, {
-  getFighters: () => getFighters
+// src/routes.ts
+var routes_exports = {};
+__export(routes_exports, {
+  default: () => routes_default
 });
-module.exports = __toCommonJS(fighters_controller_exports);
+module.exports = __toCommonJS(routes_exports);
+var import_express = require("express");
 
 // src/repositories/fighters-repository.ts
 var database = [
@@ -87,7 +88,8 @@ var getFighters = (req, res) => __async(null, null, function* () {
   const httpResponse = yield getFighterService();
   res.status(httpResponse.statusCode).json(httpResponse.body);
 });
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  getFighters
-});
+
+// src/routes.ts
+var router = (0, import_express.Router)();
+router.get("/fighters/list", getFighters);
+var routes_default = router;
