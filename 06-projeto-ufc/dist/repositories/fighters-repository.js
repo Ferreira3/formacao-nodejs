@@ -40,25 +40,94 @@ var __async = (__this, __arguments, generator) => {
 // src/repositories/fighters-repository.ts
 var fighters_repository_exports = {};
 __export(fighters_repository_exports, {
+  deleteOneFighter: () => deleteOneFighter,
+  findAndModifyFighter: () => findAndModifyFighter,
+  getAllFighters: () => getAllFighters,
   getFighterById: () => getFighterById,
-  getListFighters: () => getListFighters
+  insertFighter: () => insertFighter
 });
 module.exports = __toCommonJS(fighters_repository_exports);
 var database = [
-  { id: 1, name: "alex pereira" },
-  { id: 2, name: "cyril gane" },
-  { id: 3, name: "charles oliveira" },
-  { id: 4, name: "ilia topuria" },
-  { id: 5, name: "carlos prates" }
+  {
+    id: 1,
+    name: "Alex Pereira",
+    stats: {
+      record: { w: 13, l: 2, d: 0 },
+      division: "Light Heavyweight",
+      nickname: "Poatan",
+      age: 38
+    }
+  },
+  {
+    id: 2,
+    name: "Ciryl Gane",
+    stats: {
+      record: { w: 12, l: 2, d: 0 },
+      division: "Heavyweight",
+      nickname: "Bon Gamin",
+      age: 36
+    }
+  },
+  {
+    id: 3,
+    name: "Charles Oliveira",
+    stats: {
+      record: { w: 35, l: 10, d: 0 },
+      division: "Lightweight",
+      nickname: "Do Bronx",
+      age: 36
+    }
+  },
+  {
+    id: 4,
+    name: "Ilia Topuria",
+    stats: {
+      record: { w: 16, l: 0, d: 0 },
+      division: "Featherweight",
+      nickname: "El Matador",
+      age: 29
+    }
+  },
+  {
+    id: 5,
+    name: "Carlos Prates",
+    stats: {
+      record: { w: 21, l: 6, d: 0 },
+      division: "Welterweight",
+      nickname: "The Nightmare",
+      age: 32
+    }
+  }
 ];
-var getListFighters = () => __async(null, null, function* () {
+var getAllFighters = () => __async(null, null, function* () {
   return database;
 });
 var getFighterById = (id) => __async(null, null, function* () {
   return database.find((player) => player.id === id);
 });
+var insertFighter = (fighter) => __async(null, null, function* () {
+  database.push(fighter);
+});
+var deleteOneFighter = (id) => __async(null, null, function* () {
+  const index = database.findIndex((fighter) => fighter.id === id);
+  if (index !== -1) {
+    database.splice(index, 1);
+    return true;
+  }
+  return false;
+});
+var findAndModifyFighter = (id, stats) => __async(null, null, function* () {
+  const index = database.findIndex((fighter) => fighter.id === id);
+  if (index !== 1) {
+    database[index].stats = stats;
+  }
+  return database[index];
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  deleteOneFighter,
+  findAndModifyFighter,
+  getAllFighters,
   getFighterById,
-  getListFighters
+  insertFighter
 });

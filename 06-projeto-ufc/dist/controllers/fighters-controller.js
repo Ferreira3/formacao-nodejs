@@ -40,20 +40,90 @@ var __async = (__this, __arguments, generator) => {
 // src/controllers/fighters-controller.ts
 var fighters_controller_exports = {};
 __export(fighters_controller_exports, {
-  getFighters: () => getFighters
+  deleteFighterById: () => deleteFighterById,
+  getFighterById: () => getFighterById2,
+  getFighters: () => getFighters,
+  postFighter: () => postFighter,
+  updateFighterById: () => updateFighterById
 });
 module.exports = __toCommonJS(fighters_controller_exports);
 
 // src/repositories/fighters-repository.ts
 var database = [
-  { id: 1, name: "alex pereira" },
-  { id: 2, name: "cyril gane" },
-  { id: 3, name: "charles oliveira" },
-  { id: 4, name: "ilia topuria" },
-  { id: 5, name: "carlos prates" }
+  {
+    id: 1,
+    name: "Alex Pereira",
+    stats: {
+      record: { w: 13, l: 2, d: 0 },
+      division: "Light Heavyweight",
+      nickname: "Poatan",
+      age: 38
+    }
+  },
+  {
+    id: 2,
+    name: "Ciryl Gane",
+    stats: {
+      record: { w: 12, l: 2, d: 0 },
+      division: "Heavyweight",
+      nickname: "Bon Gamin",
+      age: 36
+    }
+  },
+  {
+    id: 3,
+    name: "Charles Oliveira",
+    stats: {
+      record: { w: 35, l: 10, d: 0 },
+      division: "Lightweight",
+      nickname: "Do Bronx",
+      age: 36
+    }
+  },
+  {
+    id: 4,
+    name: "Ilia Topuria",
+    stats: {
+      record: { w: 16, l: 0, d: 0 },
+      division: "Featherweight",
+      nickname: "El Matador",
+      age: 29
+    }
+  },
+  {
+    id: 5,
+    name: "Carlos Prates",
+    stats: {
+      record: { w: 21, l: 6, d: 0 },
+      division: "Welterweight",
+      nickname: "The Nightmare",
+      age: 32
+    }
+  }
 ];
-var getListFighters = () => __async(null, null, function* () {
+var getAllFighters = () => __async(null, null, function* () {
   return database;
+});
+var getFighterById = (id) => __async(null, null, function* () {
+  return database.find((player) => player.id === id);
+});
+var insertFighter = (fighter) => __async(null, null, function* () {
+  database.push(fighter);
+});
+var deleteOneFighter = (id) => __async(null, null, function* () {
+  const index = database.findIndex((fighter) => fighter.id === id);
+  if (index !== -1) {
+    database.splice(index, 1);
+    return true;
+  }
+  return false;
+});
+var findAndModifyFighter = (id, stats) => __async(null, null, function* () {
+  const index = database.findIndex((fighter) => fighter.id === id);
+  if (index !== 1) {
+    database[index].stats = stats;
+  }
+  return database[index];
 });
 
 // src/utils/http-helper.ts
@@ -69,10 +139,24 @@ var noContent = () => __async(null, null, function* () {
     body: null
   };
 });
+var badRequest = () => __async(null, null, function* () {
+  return {
+    statusCode: 400,
+    body: null
+  };
+});
+var created = () => __async(null, null, function* () {
+  return {
+    statusCode: 201,
+    body: {
+      message: "successful"
+    }
+  };
+});
 
 // src/services/fighters-services.ts
-var getFighterService = () => __async(null, null, function* () {
-  const data = yield getListFighters();
+var getFightersService = () => __async(null, null, function* () {
+  const data = yield getAllFighters();
   let response = null;
   if (data) {
     response = yield ok(data);
@@ -81,13 +165,72 @@ var getFighterService = () => __async(null, null, function* () {
   }
   return response;
 });
+var getFighterByIdService = (id) => __async(null, null, function* () {
+  const data = yield getFighterById(id);
+  let response = null;
+  if (data) {
+    response = yield ok(data);
+  } else {
+    response = yield noContent();
+  }
+  return response;
+});
+var createFighterService = (fighter) => __async(null, null, function* () {
+  if (!fighter || Object.keys(fighter).length === 0) {
+    return yield noContent();
+  }
+  const isValid = typeof fighter.id === "number" && typeof fighter.name === "string";
+  if (!isValid) {
+    return yield badRequest();
+  }
+  yield insertFighter(fighter);
+  return yield created();
+});
+var deleteFighterByIdService = (id) => __async(null, null, function* () {
+  const isDeleted = yield deleteOneFighter(id);
+  if (isDeleted) {
+    return yield ok({ message: "deleted" });
+  } else {
+    return yield badRequest();
+  }
+});
+var updateFighterService = (id, stats) => __async(null, null, function* () {
+  const data = yield findAndModifyFighter(id, stats);
+  const response = yield ok(data);
+  return response;
+});
 
 // src/controllers/fighters-controller.ts
 var getFighters = (req, res) => __async(null, null, function* () {
-  const httpResponse = yield getFighterService();
+  const httpResponse = yield getFightersService();
+  res.status(httpResponse.statusCode).json(httpResponse.body);
+});
+var getFighterById2 = (req, res) => __async(null, null, function* () {
+  const id = Number(req.params.id);
+  const httpResponse = yield getFighterByIdService(id);
+  res.status(httpResponse.statusCode).json(httpResponse.body);
+});
+var postFighter = (req, res) => __async(null, null, function* () {
+  const bodyValue = req.body;
+  const httpResponse = yield createFighterService(bodyValue);
+  res.status(httpResponse.statusCode).json(httpResponse.body);
+});
+var deleteFighterById = (req, res) => __async(null, null, function* () {
+  const id = Number(req.params.id);
+  const httpResponse = yield deleteFighterByIdService(id);
+  res.status(httpResponse.statusCode).json(httpResponse.body);
+});
+var updateFighterById = (req, res) => __async(null, null, function* () {
+  const id = Number(req.params.id);
+  const bodyValue = req.body;
+  const httpResponse = yield updateFighterService(id, bodyValue);
   res.status(httpResponse.statusCode).json(httpResponse.body);
 });
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  getFighters
+  deleteFighterById,
+  getFighterById,
+  getFighters,
+  postFighter,
+  updateFighterById
 });

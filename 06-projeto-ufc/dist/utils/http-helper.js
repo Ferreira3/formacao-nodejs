@@ -40,7 +40,10 @@ var __async = (__this, __arguments, generator) => {
 // src/utils/http-helper.ts
 var http_helper_exports = {};
 __export(http_helper_exports, {
+  badRequest: () => badRequest,
+  created: () => created,
   noContent: () => noContent,
+  notFound: () => notFound,
   ok: () => ok
 });
 module.exports = __toCommonJS(http_helper_exports);
@@ -56,8 +59,31 @@ var noContent = () => __async(null, null, function* () {
     body: null
   };
 });
+var badRequest = () => __async(null, null, function* () {
+  return {
+    statusCode: 400,
+    body: null
+  };
+});
+var created = () => __async(null, null, function* () {
+  return {
+    statusCode: 201,
+    body: {
+      message: "successful"
+    }
+  };
+});
+var notFound = () => __async(null, null, function* () {
+  return {
+    statusCode: 404,
+    body: null
+  };
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  badRequest,
+  created,
   noContent,
+  notFound,
   ok
 });
