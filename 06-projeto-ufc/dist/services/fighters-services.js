@@ -48,8 +48,8 @@ __export(fighters_services_exports, {
 });
 module.exports = __toCommonJS(fighters_services_exports);
 
-// src/repositories/fighters-repository.ts
-var database = [
+// data/fighters-data.json
+var fighters_data_default = [
   {
     id: 1,
     name: "Alex Pereira",
@@ -101,6 +101,9 @@ var database = [
     }
   }
 ];
+
+// src/repositories/fighters-repository.ts
+var database = fighters_data_default;
 var getAllFighters = () => __async(null, null, function* () {
   return database;
 });
@@ -122,9 +125,25 @@ var findAndModifyFighter = (id, stats) => __async(null, null, function* () {
   const index = database.findIndex((fighter) => fighter.id === id);
   if (index !== 1) {
     database[index].stats = stats;
+    return true;
   }
-  return database[index];
+  return false;
 });
+
+// src/utils/schemas.ts
+var isValidStats = (stats) => {
+  if (!stats || typeof stats !== "object") return false;
+  const { division, nickname, age, record } = stats;
+  if (typeof division !== "string" || typeof nickname !== "string" || typeof age !== "number" || !record)
+    return false;
+  return typeof record.w === "number" && typeof record.l === "number" && typeof record.d === "number";
+};
+var isValidFighter = (fighter) => {
+  if (!fighter || typeof fighter !== "object") return false;
+  const { id, name, stats } = fighter;
+  if (typeof id !== "number" || typeof name !== "string") return false;
+  return isValidStats(stats);
+};
 
 // src/utils/http-helper.ts
 var ok = (data) => __async(null, null, function* () {
@@ -153,34 +172,32 @@ var created = () => __async(null, null, function* () {
     }
   };
 });
+var notFound = () => __async(null, null, function* () {
+  return {
+    statusCode: 404,
+    body: null
+  };
+});
 
 // src/services/fighters-services.ts
 var getFightersService = () => __async(null, null, function* () {
   const data = yield getAllFighters();
-  let response = null;
   if (data) {
-    response = yield ok(data);
+    return yield ok(data);
   } else {
-    response = yield noContent();
+    return yield noContent();
   }
-  return response;
 });
 var getFighterByIdService = (id) => __async(null, null, function* () {
   const data = yield getFighterById(id);
-  let response = null;
   if (data) {
-    response = yield ok(data);
+    return yield ok(data);
   } else {
-    response = yield noContent();
-  }
-  return response;
-});
-var createFighterService = (fighter) => __async(null, null, function* () {
-  if (!fighter || Object.keys(fighter).length === 0) {
     return yield noContent();
   }
-  const isValid = typeof fighter.id === "number" && typeof fighter.name === "string";
-  if (!isValid) {
+});
+var createFighterService = (fighter) => __async(null, null, function* () {
+  if (!isValidFighter(fighter)) {
     return yield badRequest();
   }
   yield insertFighter(fighter);
@@ -195,9 +212,15 @@ var deleteFighterByIdService = (id) => __async(null, null, function* () {
   }
 });
 var updateFighterService = (id, stats) => __async(null, null, function* () {
-  const data = yield findAndModifyFighter(id, stats);
-  const response = yield ok(data);
-  return response;
+  if (!isValidStats(stats)) {
+    return yield badRequest();
+  }
+  const isUpdated = yield findAndModifyFighter(id, stats);
+  if (isUpdated) {
+    return yield ok({ message: "updated" });
+  } else {
+    return yield notFound();
+  }
 });
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

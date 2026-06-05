@@ -47,7 +47,9 @@ __export(fighters_repository_exports, {
   insertFighter: () => insertFighter
 });
 module.exports = __toCommonJS(fighters_repository_exports);
-var database = [
+
+// data/fighters-data.json
+var fighters_data_default = [
   {
     id: 1,
     name: "Alex Pereira",
@@ -99,6 +101,9 @@ var database = [
     }
   }
 ];
+
+// src/repositories/fighters-repository.ts
+var database = fighters_data_default;
 var getAllFighters = () => __async(null, null, function* () {
   return database;
 });
@@ -120,8 +125,9 @@ var findAndModifyFighter = (id, stats) => __async(null, null, function* () {
   const index = database.findIndex((fighter) => fighter.id === id);
   if (index !== 1) {
     database[index].stats = stats;
+    return true;
   }
-  return database[index];
+  return false;
 });
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

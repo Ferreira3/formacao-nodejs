@@ -45,8 +45,8 @@ __export(routes_exports, {
 module.exports = __toCommonJS(routes_exports);
 var import_express = require("express");
 
-// src/repositories/fighters-repository.ts
-var database = [
+// data/fighters-data.json
+var fighters_data_default = [
   {
     id: 1,
     name: "Alex Pereira",
@@ -98,6 +98,9 @@ var database = [
     }
   }
 ];
+
+// src/repositories/fighters-repository.ts
+var database = fighters_data_default;
 var getAllFighters = () => __async(null, null, function* () {
   return database;
 });
@@ -119,9 +122,25 @@ var findAndModifyFighter = (id, stats) => __async(null, null, function* () {
   const index = database.findIndex((fighter) => fighter.id === id);
   if (index !== 1) {
     database[index].stats = stats;
+    return true;
   }
-  return database[index];
+  return false;
 });
+
+// src/utils/schemas.ts
+var isValidStats = (stats) => {
+  if (!stats || typeof stats !== "object") return false;
+  const { division, nickname, age, record } = stats;
+  if (typeof division !== "string" || typeof nickname !== "string" || typeof age !== "number" || !record)
+    return false;
+  return typeof record.w === "number" && typeof record.l === "number" && typeof record.d === "number";
+};
+var isValidFighter = (fighter) => {
+  if (!fighter || typeof fighter !== "object") return false;
+  const { id, name, stats } = fighter;
+  if (typeof id !== "number" || typeof name !== "string") return false;
+  return isValidStats(stats);
+};
 
 // src/utils/http-helper.ts
 var ok = (data) => __async(null, null, function* () {
@@ -150,34 +169,32 @@ var created = () => __async(null, null, function* () {
     }
   };
 });
+var notFound = () => __async(null, null, function* () {
+  return {
+    statusCode: 404,
+    body: null
+  };
+});
 
 // src/services/fighters-services.ts
 var getFightersService = () => __async(null, null, function* () {
   const data = yield getAllFighters();
-  let response = null;
   if (data) {
-    response = yield ok(data);
+    return yield ok(data);
   } else {
-    response = yield noContent();
+    return yield noContent();
   }
-  return response;
 });
 var getFighterByIdService = (id) => __async(null, null, function* () {
   const data = yield getFighterById(id);
-  let response = null;
   if (data) {
-    response = yield ok(data);
+    return yield ok(data);
   } else {
-    response = yield noContent();
-  }
-  return response;
-});
-var createFighterService = (fighter) => __async(null, null, function* () {
-  if (!fighter || Object.keys(fighter).length === 0) {
     return yield noContent();
   }
-  const isValid = typeof fighter.id === "number" && typeof fighter.name === "string";
-  if (!isValid) {
+});
+var createFighterService = (fighter) => __async(null, null, function* () {
+  if (!isValidFighter(fighter)) {
     return yield badRequest();
   }
   yield insertFighter(fighter);
@@ -192,9 +209,15 @@ var deleteFighterByIdService = (id) => __async(null, null, function* () {
   }
 });
 var updateFighterService = (id, stats) => __async(null, null, function* () {
-  const data = yield findAndModifyFighter(id, stats);
-  const response = yield ok(data);
-  return response;
+  if (!isValidStats(stats)) {
+    return yield badRequest();
+  }
+  const isUpdated = yield findAndModifyFighter(id, stats);
+  if (isUpdated) {
+    return yield ok({ message: "updated" });
+  } else {
+    return yield notFound();
+  }
 });
 
 // src/controllers/fighters-controller.ts
@@ -224,6 +247,131 @@ var updateFighterById = (req, res) => __async(null, null, function* () {
   res.status(httpResponse.statusCode).json(httpResponse.body);
 });
 
+// data/events-data.json
+var events_data_default = [
+  {
+    id: "ufc-300",
+    eventName: "UFC 300: Pereira vs. Hill",
+    date: "2024-04-13T22:00:00Z",
+    location: {
+      arena: "T-Mobile Arena",
+      city: "Las Vegas",
+      country: "USA"
+    },
+    mainCard: [
+      "Alex Pereira vs. Jamahal Hill",
+      "Zhang Weili vs. Yan Xiaonan",
+      "Justin Gaethje vs. Max Holloway",
+      "Arman Tsarukyan vs. Charles Oliveira"
+    ],
+    prelims: [
+      "Jiri Prochazka vs. Aleksandar Rakic",
+      "Aljamain Sterling vs. Calvin Kattar",
+      "Kayla Harrison vs. Holly Holm"
+    ],
+    status: "completed"
+  },
+  {
+    id: "ufc-301",
+    eventName: "UFC 301: Pantoja vs. Erceg",
+    date: "2024-05-04T22:00:00Z",
+    location: {
+      arena: "Farmasi Arena",
+      city: "Rio de Janeiro",
+      country: "Brazil"
+    },
+    mainCard: [
+      "Alexandre Pantoja vs. Steve Erceg",
+      "Jonathan Martinez vs. Jos\xE9 Aldo",
+      "Anthony Smith vs. Vitor Petrino"
+    ],
+    prelims: [
+      "Joanderson Brito vs. Jack Shore",
+      "Iasmin Lucindo vs. Karolina Kowalkiewicz"
+    ],
+    status: "completed"
+  },
+  {
+    id: "ufc-302",
+    eventName: "UFC 302: Makhachev vs. Poirier",
+    date: "2024-06-01T22:00:00Z",
+    location: {
+      arena: "Prudential Center",
+      city: "Newark",
+      country: "USA"
+    },
+    mainCard: [
+      "Islam Makhachev vs. Dustin Poirier",
+      "Sean Strickland vs. Paulo Costa",
+      "Kevin Holland vs. Michal Oleksiejczuk"
+    ],
+    prelims: [
+      "Cesar Almeida vs. Roman Kopylov",
+      "Grant Dawson vs. Joe Solecki"
+    ],
+    status: "completed"
+  },
+  {
+    id: "ufc-fight-night-cancelled-example",
+    eventName: "UFC Fight Night: Sandhagen vs. Nurmagomedov",
+    date: "2023-08-05T19:00:00Z",
+    location: {
+      arena: "Bridgestone Arena",
+      city: "Nashville",
+      country: "USA"
+    },
+    mainCard: [
+      "Cory Sandhagen vs. Umar Nurmagomedov"
+    ],
+    prelims: [
+      "Dustin Jacoby vs. Kennedy Nzechukwu"
+    ],
+    status: "cancelled"
+  },
+  {
+    id: "ufc-future-event",
+    eventName: "UFC 315: Prochazka vs. Hill",
+    date: "2026-08-15T22:00:00Z",
+    location: {
+      arena: "Jeunesse Arena",
+      city: "Rio de Janeiro",
+      country: "Brazil"
+    },
+    mainCard: [
+      "Jiri Prochazka vs. Jamahal Hill",
+      "Gilbert Burns vs. Sean Brady",
+      "Taila Santos vs. Erin Blanchfield"
+    ],
+    prelims: [
+      "Caio Borralho vs. Abus Magomedov",
+      "Ketlen Vieira vs. Macy Chiasson"
+    ],
+    status: "scheduled"
+  }
+];
+
+// src/repositories/events-repository.ts
+var database2 = events_data_default;
+var getAllEvents = () => __async(null, null, function* () {
+  return database2;
+});
+
+// src/services/events-services.ts
+var getEventsService = () => __async(null, null, function* () {
+  const data = yield getAllEvents();
+  if (data) {
+    return yield ok(data);
+  } else {
+    return yield noContent();
+  }
+});
+
+// src/controllers/events-controller.ts
+var getEvents = (req, res) => __async(null, null, function* () {
+  const httpResponse = yield getEventsService();
+  res.status(httpResponse.statusCode).json(httpResponse.body);
+});
+
 // src/routes.ts
 var router = (0, import_express.Router)();
 router.get("/fighters", getFighters);
@@ -231,4 +379,5 @@ router.get("/fighters/:id", getFighterById2);
 router.post("/fighters", postFighter);
 router.delete("/fighters/:id", deleteFighterById);
 router.patch("/fighters/:id", updateFighterById);
+router.get("/events", getEvents);
 var routes_default = router;

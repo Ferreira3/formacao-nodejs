@@ -37,12 +37,12 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// src/controllers/events-controller.ts
-var events_controller_exports = {};
-__export(events_controller_exports, {
-  getEvents: () => getEvents
+// src/repositories/events-repository.ts
+var events_repository_exports = {};
+__export(events_repository_exports, {
+  getAllEvents: () => getAllEvents
 });
-module.exports = __toCommonJS(events_controller_exports);
+module.exports = __toCommonJS(events_repository_exports);
 
 // data/events-data.json
 var events_data_default = [
@@ -152,37 +152,7 @@ var database = events_data_default;
 var getAllEvents = () => __async(null, null, function* () {
   return database;
 });
-
-// src/utils/http-helper.ts
-var ok = (data) => __async(null, null, function* () {
-  return {
-    statusCode: 200,
-    body: data
-  };
-});
-var noContent = () => __async(null, null, function* () {
-  return {
-    statusCode: 204,
-    body: null
-  };
-});
-
-// src/services/events-services.ts
-var getEventsService = () => __async(null, null, function* () {
-  const data = yield getAllEvents();
-  if (data) {
-    return yield ok(data);
-  } else {
-    return yield noContent();
-  }
-});
-
-// src/controllers/events-controller.ts
-var getEvents = (req, res) => __async(null, null, function* () {
-  const httpResponse = yield getEventsService();
-  res.status(httpResponse.statusCode).json(httpResponse.body);
-});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  getEvents
+  getAllEvents
 });
