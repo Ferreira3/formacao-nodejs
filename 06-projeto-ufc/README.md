@@ -1,9 +1,8 @@
-# UFC API (TypeScript + Express)
+# 🥊️ UFC API (TypeScript + Express)
 
 <p align="right">
   <img src="assets/typescript-logo.png" alt="TypeScript" width="64" />
   <img src="assets/express-logo.png" alt="Express" width="64" />
-  <img src="assets/mma-logo.png" alt="MMA Glove" width="64" />
 </p>
 
 API simples para gerenciar lutadores e eventos do UFC.
