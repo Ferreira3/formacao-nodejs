@@ -1,5 +1,5 @@
 import { EventModel } from "../models/models";
-import events from "../../data/events-data.json";
+import events from "../data/events-data.json";
 
 const database = events as EventModel[];
 

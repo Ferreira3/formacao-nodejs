@@ -1,5 +1,5 @@
 import { FighterModel, StatsModel } from "../models/models";
-import fighters from "../../data/fighters-data.json";
+import fighters from "../data/fighters-data.json";
 
 const database = fighters as FighterModel[];
 
